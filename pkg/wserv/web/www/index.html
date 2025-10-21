@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  {head}
+</head>
+
+<body>
+  {body}
+
+  <script>
+    console.log(location.href)
+    let ws = new WebSocket("ws://127.0.0.1:9890/ws");
+    ws.addEventListener("open", e => {
+      console.log("connection opened")
+      console.log(e)
+    })
+
+    ws.onmessage = (e) => {
+      let idx = e.data.indexOf(":")
+      const signal = e.data.substring(0, idx)
+      const body = e.data.substring(idx + 1)
+
+      if (signal == "refresh") {
+        window.location.reload()
+        return
+      }
+
+      document.body.innerHTML = body
+    };
+  </script>
+</body>
+
+</html>

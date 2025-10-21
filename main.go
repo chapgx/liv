@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "g0.codeh.io/chapgx/liv/cmd"
+	_ "github.com/chapgx/liv/cmd"
 	"github.com/racg0092/rhombifer"
 	"github.com/racg0092/rhombifer/pkg/builtin"
 )

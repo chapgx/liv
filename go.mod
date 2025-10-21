@@ -1,4 +1,4 @@
-module g0.codeh.io/chapgx/liv
+module github.com/chapgx/liv
 
 go 1.25.3
 

@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"g0.codeh.io/chapgx/liv/pkg/wserv/web"
+	"github.com/chapgx/liv/pkg/wserv/web"
 	"github.com/chapgx/owl"
 	"github.com/gorilla/websocket"
 )

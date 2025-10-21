@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"g0.codeh.io/chapgx/liv/pkg/wserv"
+	"github.com/chapgx/liv/pkg/wserv"
 	"github.com/racg0092/rhombifer"
 	"github.com/racg0092/rhombifer/pkg/models"
 )

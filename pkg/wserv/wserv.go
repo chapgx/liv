@@ -132,6 +132,7 @@ func changeFile(next http.Handler) http.HandlerFunc {
 		bodystart := bytes.Index(b, []byte("<body>"))
 		bodyend := bytes.Index(b, []byte("</body>"))
 
+		//BUG: body with class fails
 		if bodystart == -1 || bodyend == -1 {
 			panic("malformed file")
 		}

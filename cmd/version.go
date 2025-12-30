@@ -10,7 +10,7 @@ var VerCmd = &rhombifer.Command{
 	Name:      "version",
 	ShortDesc: "App version",
 	Run: func(args ...string) error {
-		fmt.Println("v0.1.1")
+		fmt.Println("v0.1.2")
 		return nil
 	},
 }

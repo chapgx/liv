@@ -2,7 +2,6 @@ package wserv
 
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -53,13 +52,14 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	//TODO: implement better logging
-	fmt.Println("connection open")
+	// not sure what i meant here maybe more descriptiove logs
+	log.Println("connection open")
 	for {
 		select {
 		case rslt, isOpen := <-sub.Listen():
 			if !isOpen {
 				conn.WriteMessage(websocket.CloseMessage, []byte{})
-				fmt.Println("subscription ended")
+				log.Println("subscription ended")
 				return
 			}
 			switch d := rslt.(type) {
@@ -73,13 +73,13 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 				}
 
 				if e := conn.WriteMessage(websocket.TextMessage, msg); e != nil {
-					fmt.Println("error sending message", e)
+					log.Println("error sending message", e)
 					return
 				}
-				fmt.Println("signal sent to client")
+				log.Println("signal sent to client")
 			}
 		case <-done:
-			fmt.Println("client closed connection")
+			log.Println("client closed connection")
 			return
 		}
 	}
@@ -94,7 +94,7 @@ func RunServer(dir, rootfile string) {
 
 	server := http.Server{Addr: Host + ":" + PORT, Handler: handler}
 
-	fmt.Println("server running on", PORT)
+	log.Println("server running on", PORT)
 	basedir = dir
 	indexPage = rootfile
 
@@ -106,7 +106,7 @@ func RunServer(dir, rootfile string) {
 	go owl.WatchWithMinInterval(dir)
 
 	if e := server.ListenAndServe(); e != nil {
-		fmt.Println(e)
+		log.Println(e)
 		Done <- 1
 	}
 }
@@ -121,7 +121,7 @@ func changeFile(next http.Handler) http.HandlerFunc {
 
 		b, e := os.ReadFile(filepath.Join(basedir, r.URL.Path))
 		if e != nil {
-			fmt.Println("form web server", e)
+			log.Println("form web server", e)
 			Done <- 1
 		}
 
@@ -172,6 +172,7 @@ func serverFile(next http.Handler) http.Handler {
 
 		f, e := os.OpenFile(path, os.O_RDONLY, os.ModePerm)
 		if e != nil {
+			log.Println("error from server file", e)
 			http.NotFound(w, r)
 			return
 		}

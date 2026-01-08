@@ -66,6 +66,12 @@ var ServeCmd = &rhombifer.Command{
 				if e != nil {
 					fmt.Println("failed to open browser", e)
 				}
+			case "windows":
+				//TODO: need to find a better way for this
+				e := exec.Command("start", "http://"+wserv.Host+":"+wserv.PORT).Start()
+				if e != nil {
+					fmt.Println("failed to open browser", e)
+				}
 			}
 		}
 
